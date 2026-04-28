@@ -15,14 +15,9 @@ import lombok.val;
 @AllArgsConstructor
 public class Main implements CommandLineRunner {
 
-    @Autowired
-    private ApplicationContext context;
-
-    @Autowired
-    private ApplicationArguments appArgs;
-
-    @Autowired
-    private IdentifyIpWhois identifyIpWhois;
+    @Autowired private ApplicationContext context;
+    @Autowired private ApplicationArguments appArgs;
+    @Autowired private IdentifyIpWhois identifyIpWhois;
 
     public static void main(final String[] args) {
         SpringApplication.run(Main.class, args);
