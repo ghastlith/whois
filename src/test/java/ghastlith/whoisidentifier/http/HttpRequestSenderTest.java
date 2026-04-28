@@ -20,7 +20,6 @@ public class HttpRequestSenderTest {
 
   private final HttpClient mockHttpClient = mock(HttpClient.class);
   private final HttpResponse mockHttpResponse = mock(HttpResponse.class);
-
   private final HttpRequestSender mockHttpRequestSender = new HttpRequestSender(mockHttpClient);
 
   private static final String IP = "168.124.24.32";

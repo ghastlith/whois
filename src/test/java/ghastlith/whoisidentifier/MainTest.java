@@ -21,11 +21,11 @@ import ghastlith.whoisidentifier.identify.IdentifyIpWhois;
 
 class MainTest {
 
-  private ApplicationContext context = mock(ApplicationContext.class);
-  private ApplicationArguments appArgs = mock(ApplicationArguments.class);
-  private IdentifyIpWhois identifyIpWhois = mock(IdentifyIpWhois.class);
+  private final ApplicationContext context = mock(ApplicationContext.class);
+  private final ApplicationArguments appArgs = mock(ApplicationArguments.class);
+  private final IdentifyIpWhois identifyIpWhois = mock(IdentifyIpWhois.class);
 
-  private Main application = new Main(context, appArgs, identifyIpWhois);
+  private final Main application = new Main(context, appArgs, identifyIpWhois);
 
   private final PrintStream standardOut = System.out;
   private final PrintStream standardErr = System.err;

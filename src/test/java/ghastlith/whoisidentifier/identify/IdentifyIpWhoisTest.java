@@ -17,10 +17,9 @@ import ghastlith.whoisidentifier.identify.exception.JsonFieldNotFoundException;
 public class IdentifyIpWhoisTest {
 
   private final HttpRequestSender mockHttpRequestSender = mock(HttpRequestSender.class);
+  private final ObjectMapper objectMapper = new ObjectMapper();
 
-  private ObjectMapper objectMapper = new ObjectMapper();
-
-  private IdentifyIpWhois identifyIpWhois = new IdentifyIpWhois(mockHttpRequestSender, objectMapper);
+  private final IdentifyIpWhois identifyIpWhois = new IdentifyIpWhois(mockHttpRequestSender, objectMapper);
 
   @Test
   void getIPDetailedData_shouldReturnValidResponseWhenIpv4IsValid() {
