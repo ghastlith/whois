@@ -13,83 +13,82 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ghastlith.whoisidentifier.http.HttpRequestSender;
 import ghastlith.whoisidentifier.identify.exception.JsonFieldNotFoundException;
-import lombok.val;
 
 public class IdentifyIpWhoisTest {
 
-    private final HttpRequestSender mockHttpRequestSender = mock(HttpRequestSender.class);
+  private final HttpRequestSender mockHttpRequestSender = mock(HttpRequestSender.class);
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+  private ObjectMapper objectMapper = new ObjectMapper();
 
-    private IdentifyIpWhois identifyIpWhois = new IdentifyIpWhois(mockHttpRequestSender, objectMapper);
+  private IdentifyIpWhois identifyIpWhois = new IdentifyIpWhois(mockHttpRequestSender, objectMapper);
 
-    @Test
-    void getIPDetailedData_shouldReturnValidResponseWhenIpv4IsValid() {
-        // given
-        val ip = "8.8.8.8";
-        val responseBody = "{ \"ip\": \"8.8.8.8\", \"success\": true, \"type\": \"IPv4\", \"country\": \"United States\", \"connection\": { \"isp\": \"Google LLC\" } }";
-        when(this.mockHttpRequestSender.doGetRequest(any())).thenReturn(responseBody);
+  @Test
+  void getIPDetailedData_shouldReturnValidResponseWhenIpv4IsValid() {
+    // given
+    final var ip = "8.8.8.8";
+    final var responseBody = "{ \"ip\": \"8.8.8.8\", \"success\": true, \"type\": \"IPv4\", \"country\": \"United States\", \"connection\": { \"isp\": \"Google LLC\" } }";
+    when(this.mockHttpRequestSender.doGetRequest(any())).thenReturn(responseBody);
 
-        // when
-        val response = this.identifyIpWhois.getIPDetailedData(ip);
+    // when
+    final var response = this.identifyIpWhois.getIPDetailedData(ip);
 
-        // then
-        assertEquals("IPv4 8.8.8.8 is located on United States and belongs to Google LLC", response);
-    }
+    // then
+    assertEquals("IPv4 8.8.8.8 is located on United States and belongs to Google LLC", response);
+  }
 
-    @Test
-    void getIPDetailedData_shouldReturnValidResponseWhenIpv6IsValid() {
-        // given
-        val ip = "2001:4860:4860::8888";
-        val responseBody = "{ \"ip\": \"2001:4860:4860::8888\", \"success\": true, \"type\": \"IPv6\", \"country\": \"United States\", \"connection\": { \"isp\": \"Google LLC\" } }";
-        when(this.mockHttpRequestSender.doGetRequest(any())).thenReturn(responseBody);
+  @Test
+  void getIPDetailedData_shouldReturnValidResponseWhenIpv6IsValid() {
+    // given
+    final var ip = "2001:4860:4860::8888";
+    final var responseBody = "{ \"ip\": \"2001:4860:4860::8888\", \"success\": true, \"type\": \"IPv6\", \"country\": \"United States\", \"connection\": { \"isp\": \"Google LLC\" } }";
+    when(this.mockHttpRequestSender.doGetRequest(any())).thenReturn(responseBody);
 
-        // when
-        val response = this.identifyIpWhois.getIPDetailedData(ip);
+    // when
+    final var response = this.identifyIpWhois.getIPDetailedData(ip);
 
-        // then
-        assertEquals("IPv6 2001:4860:4860::8888 is located on United States and belongs to Google LLC", response);
-    }
+    // then
+    assertEquals("IPv6 2001:4860:4860::8888 is located on United States and belongs to Google LLC", response);
+  }
 
-    @Test
-    void getIPDetailedData_reservedIpShouldReturnInvalidIpMessage() {
-        // given
-        val ip = "127.0.0.1";
-        val responseBody = "{ \"ip\": \"127.0.0.1\", \"success\": false, \"message\": \"Reserved range\" }";
-        when(this.mockHttpRequestSender.doGetRequest(any())).thenReturn(responseBody);
+  @Test
+  void getIPDetailedData_reservedIpShouldReturnInvalidIpMessage() {
+    // given
+    final var ip = "127.0.0.1";
+    final var responseBody = "{ \"ip\": \"127.0.0.1\", \"success\": false, \"message\": \"Reserved range\" }";
+    when(this.mockHttpRequestSender.doGetRequest(any())).thenReturn(responseBody);
 
-        // when
-        val response = this.identifyIpWhois.getIPDetailedData(ip);
+    // when
+    final var response = this.identifyIpWhois.getIPDetailedData(ip);
 
-        // then
-        assertEquals("The provided IP (" + ip + ") is invalid", response);
-    }
+    // then
+    assertEquals("The provided IP (" + ip + ") is invalid", response);
+  }
 
-    @Test
-    void getIPDetailedData_invalidIpShouldReturnInvalidIpMessage() {
-        // given
-        val ip = "127.0.0.1";
-        val responseBody = "{ \"ip\": \"4\", \"success\": false, \"message\": \"Invalid IP address\" } ";
-        when(this.mockHttpRequestSender.doGetRequest(any())).thenReturn(responseBody);
+  @Test
+  void getIPDetailedData_invalidIpShouldReturnInvalidIpMessage() {
+    // given
+    final var ip = "127.0.0.1";
+    final var responseBody = "{ \"ip\": \"4\", \"success\": false, \"message\": \"Invalid IP address\" } ";
+    when(this.mockHttpRequestSender.doGetRequest(any())).thenReturn(responseBody);
 
-        // when
-        val response = this.identifyIpWhois.getIPDetailedData(ip);
+    // when
+    final var response = this.identifyIpWhois.getIPDetailedData(ip);
 
-        // then
-        assertEquals("The provided IP (" + ip + ") is invalid", response);
-    }
+    // then
+    assertEquals("The provided IP (" + ip + ") is invalid", response);
+  }
 
-    @Test
-    void getIPDetailedData_shouldThrowJsonFieldNotFoundWhenResponseBodyIsEmpty() {
-        // given
-        val ip = "8.8.8.8";
-        when(this.mockHttpRequestSender.doGetRequest(any())).thenReturn("");
+  @Test
+  void getIPDetailedData_shouldThrowJsonFieldNotFoundWhenResponseBodyIsEmpty() {
+    // given
+    final var ip = "8.8.8.8";
+    when(this.mockHttpRequestSender.doGetRequest(any())).thenReturn("");
 
-        // when
-        val throwable = catchThrowable(() -> this.identifyIpWhois.getIPDetailedData(ip));
+    // when
+    final var throwable = catchThrowable(() -> this.identifyIpWhois.getIPDetailedData(ip));
 
-        // then
-        assertThat(throwable).isInstanceOf(JsonFieldNotFoundException.class);
-    }
+    // then
+    assertThat(throwable).isInstanceOf(JsonFieldNotFoundException.class);
+  }
 
 }

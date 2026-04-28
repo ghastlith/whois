@@ -14,45 +14,44 @@ import java.net.http.HttpResponse;
 import org.junit.jupiter.api.Test;
 
 import ghastlith.whoisidentifier.http.exception.HttpErrorResponseException;
-import lombok.val;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class HttpRequestSenderTest {
 
-    private final HttpClient mockHttpClient = mock(HttpClient.class);
-    private final HttpResponse mockHttpResponse = mock(HttpResponse.class);
+  private final HttpClient mockHttpClient = mock(HttpClient.class);
+  private final HttpResponse mockHttpResponse = mock(HttpResponse.class);
 
-    private final HttpRequestSender mockHttpRequestSender = new HttpRequestSender(mockHttpClient);
+  private final HttpRequestSender mockHttpRequestSender = new HttpRequestSender(mockHttpClient);
 
-    private static final String IP = "168.124.24.32";
+  private static final String IP = "168.124.24.32";
 
-    @Test
-    void doGetRequest_shouldReturnResponseBodyAsStringWhenRequestIs2xxSuccessful() throws IOException, InterruptedException {
-        // given
-        val mockResponseBody = "{ \"success\": true }";
+  @Test
+  void doGetRequest_shouldReturnResponseBodyAsStringWhenRequestIs2xxSuccessful() throws IOException, InterruptedException {
+    // given
+    final var mockResponseBody = "{ \"success\": true }";
 
-        when(this.mockHttpResponse.statusCode()).thenReturn(200);
-        when(this.mockHttpResponse.body()).thenReturn(mockResponseBody);
-        when(this.mockHttpClient.send(any(), any())).thenReturn(this.mockHttpResponse);
+    when(this.mockHttpResponse.statusCode()).thenReturn(200);
+    when(this.mockHttpResponse.body()).thenReturn(mockResponseBody);
+    when(this.mockHttpClient.send(any(), any())).thenReturn(this.mockHttpResponse);
 
-        // when
-        val response = this.mockHttpRequestSender.doGetRequest(IP);
+    // when
+    final var response = this.mockHttpRequestSender.doGetRequest(IP);
 
-        // then
-        assertEquals(mockResponseBody, response);
-    }
+    // then
+    assertEquals(mockResponseBody, response);
+  }
 
-    @Test
-    void doGetRequest_shouldThrowHttpErrorResponseExceptionWhenStatusIsNot2xxSuccessful() throws IOException, InterruptedException {
-        // given
-        when(this.mockHttpResponse.statusCode()).thenReturn(403);
-        when(this.mockHttpClient.send(any(), any())).thenReturn(this.mockHttpResponse);
+  @Test
+  void doGetRequest_shouldThrowHttpErrorResponseExceptionWhenStatusIsNot2xxSuccessful() throws IOException, InterruptedException {
+    // given
+    when(this.mockHttpResponse.statusCode()).thenReturn(403);
+    when(this.mockHttpClient.send(any(), any())).thenReturn(this.mockHttpResponse);
 
-        // when
-        val throwable = catchThrowable(() -> this.mockHttpRequestSender.doGetRequest(IP));
+    // when
+    final var throwable = catchThrowable(() -> this.mockHttpRequestSender.doGetRequest(IP));
 
-        // then
-        assertThat(throwable).isInstanceOf(HttpErrorResponseException.class);
-    }
+    // then
+    assertThat(throwable).isInstanceOf(HttpErrorResponseException.class);
+  }
 
 }

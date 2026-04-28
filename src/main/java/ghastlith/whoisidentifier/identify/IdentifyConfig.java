@@ -8,9 +8,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 public class IdentifyConfig {
 
-    @Bean
-    ObjectMapper objectMapper() {
-        return new ObjectMapper();
-    }
+  @Bean
+  ObjectMapper objectMapper() {
+    return new ObjectMapper();
+  }
 
 }

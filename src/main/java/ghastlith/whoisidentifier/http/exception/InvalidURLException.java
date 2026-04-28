@@ -6,8 +6,8 @@ package ghastlith.whoisidentifier.http.exception;
  */
 public class InvalidURLException extends RuntimeException {
 
-    public InvalidURLException(final String url) {
-        super("The URL " + url + " is invalid");
-    }
+  public InvalidURLException(final String url) {
+    super("The URL " + url + " is invalid");
+  }
 
 }

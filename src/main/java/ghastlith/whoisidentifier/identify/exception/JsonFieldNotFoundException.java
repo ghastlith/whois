@@ -6,8 +6,8 @@ package ghastlith.whoisidentifier.identify.exception;
  */
 public class JsonFieldNotFoundException extends RuntimeException {
 
-    public JsonFieldNotFoundException(final String field) {
-        super("The field " + field + " does not exist on the Whois response");
-    }
+  public JsonFieldNotFoundException(final String field) {
+    super("The field " + field + " does not exist on the Whois response");
+  }
 
 }

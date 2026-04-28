@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import ghastlith.whoisidentifier.http.exception.HttpErrorResponseException;
 import ghastlith.whoisidentifier.http.exception.InvalidURLException;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 
 /**
  * Utility class for HTTP actions.
@@ -23,48 +22,48 @@ import lombok.val;
 @RequiredArgsConstructor
 public class HttpRequestSender {
 
-    private final HttpClient httpClient;
+  private final HttpClient httpClient;
 
-    private static final String WHOIS_URL = "http://ipwho.is/";
+  private static final String WHOIS_URL = "http://ipwho.is/";
 
-    /**
-     * Sends an HTTP GET Request to an specified url and returns the response body.
-     *
-     * @param ip the desired url to retrieve information
-     * @return The request response body.
-     */
-    public String doGetRequest(final String ip) {
-        val uri = buildUri(ip);
+  /**
+   * Sends an HTTP GET Request to an specified url and returns the response body.
+   *
+   * @param ip the desired url to retrieve information
+   * @return The request response body.
+   */
+  public String doGetRequest(final String ip) {
+    final var uri = buildUri(ip);
 
-        val request = HttpRequest.newBuilder()
-            .uri(uri)
-            .GET()
-            .build();
-        val response = getResponse(httpClient, request);
+    final var request = HttpRequest.newBuilder()
+        .uri(uri)
+        .GET()
+        .build();
+    final var response = getResponse(httpClient, request);
 
-        if (!HttpStatus.valueOf(response.statusCode()).is2xxSuccessful()) {
-            throw new HttpErrorResponseException(response.statusCode());
-        }
-
-        return response.body();
+    if (!HttpStatus.valueOf(response.statusCode()).is2xxSuccessful()) {
+      throw new HttpErrorResponseException(response.statusCode());
     }
 
-    private URI buildUri(final String ip) {
-        val url = WHOIS_URL + ip;
+    return response.body();
+  }
 
-        try {
-            return new URI(url);
-        } catch (URISyntaxException e) {
-            throw new InvalidURLException(url);
-        }
-    }
+  private URI buildUri(final String ip) {
+    final var url = WHOIS_URL + ip;
 
-    private HttpResponse<String> getResponse(final HttpClient httpClient, final HttpRequest request) {
-        try {
-            return httpClient.send(request, BodyHandlers.ofString());
-        } catch (IOException | InterruptedException e) {
-            throw new HttpErrorResponseException(500);
-        }
+    try {
+      return new URI(url);
+    } catch (URISyntaxException e) {
+      throw new InvalidURLException(url);
     }
+  }
+
+  private HttpResponse<String> getResponse(final HttpClient httpClient, final HttpRequest request) {
+    try {
+      return httpClient.send(request, BodyHandlers.ofString());
+    } catch (IOException | InterruptedException e) {
+      throw new HttpErrorResponseException(500);
+    }
+  }
 
 }

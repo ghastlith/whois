@@ -10,7 +10,6 @@ import ghastlith.whoisidentifier.http.HttpRequestSender;
 import ghastlith.whoisidentifier.identify.exception.JsonFieldNotFoundException;
 import ghastlith.whoisidentifier.identify.exception.JsonParsingException;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 
 /**
  * Handles all actions from the ip identifying process.
@@ -19,59 +18,53 @@ import lombok.val;
 @RequiredArgsConstructor
 public class IdentifyIpWhois {
 
-    private final HttpRequestSender httpRequestSender;
-    private final ObjectMapper objectMapper;
+  private final HttpRequestSender httpRequestSender;
+  private final ObjectMapper objectMapper;
 
-    /**
-     * Sends an HTTP GET request to the WHOIS api and builds an user readable
-     * message based on the response from the request.
-     *
-     * @param ip the ip to be identified
-     * @return Response based on the request response body.
-     */
-    public String getIPDetailedData(final String ip) {
-        val responseBody = httpRequestSender.doGetRequest(ip);
+  /**
+   * Sends an HTTP GET request to the WHOIS api and builds an user readable
+   * message based on the response from the request.
+   *
+   * @param ip the ip to be identified
+   * @return Response based on the request response body.
+   */
+  public String getIPDetailedData(final String ip) {
+    final var responseBody = httpRequestSender.doGetRequest(ip);
 
-        val mappedBody = parseContent(responseBody);
+    final var mappedBody = parseContent(responseBody);
 
-        if (!getValueFromJson(mappedBody, "success").asBoolean()) {
-            return "The provided IP (" + ip + ") is invalid";
-        }
-
-        return buildResponse(mappedBody);
+    if (!getValueFromJson(mappedBody, "success").asBoolean()) {
+      return "The provided IP (" + ip + ") is invalid";
     }
 
-    private JsonNode parseContent(final String responseBody) {
-        try {
-            return objectMapper.readTree(responseBody);
-        } catch (JsonProcessingException e) {
-            throw new JsonParsingException();
-        }
+    return buildResponse(mappedBody);
+  }
+
+  private JsonNode parseContent(final String responseBody) {
+    try {
+      return objectMapper.readTree(responseBody);
+    } catch (JsonProcessingException e) {
+      throw new JsonParsingException();
+    }
+  }
+
+  private JsonNode getValueFromJson(final JsonNode mappedBody, final String path) {
+    final var value = mappedBody.at("/" + path);
+
+    if (value.isMissingNode()) {
+      throw new JsonFieldNotFoundException(path);
     }
 
-    private JsonNode getValueFromJson(final JsonNode mappedBody, final String path) {
-        val value = mappedBody.at("/" + path);
+    return value;
+  }
 
-        if (value.isMissingNode()) {
-            throw new JsonFieldNotFoundException(path);
-        }
+  private String buildResponse(final JsonNode mappedBody) {
+    final var ip = getValueFromJson(mappedBody, "ip").asText();
+    final var type = getValueFromJson(mappedBody, "type").asText();
+    final var country = getValueFromJson(mappedBody, "country").asText();
+    final var isp = getValueFromJson(mappedBody, "connection/isp").asText();
 
-        return value;
-    }
-
-    private String buildResponse(final JsonNode mappedBody) {
-        val ip = getValueFromJson(mappedBody, "ip").asText();
-        val type = getValueFromJson(mappedBody, "type").asText();
-        val country = getValueFromJson(mappedBody, "country").asText();
-        val isp = getValueFromJson(mappedBody, "connection/isp").asText();
-
-        return String.format(
-            "%s %s is located on %s and belongs to %s",
-            type,
-            ip,
-            country,
-            isp
-        );
-    }
+    return String.format("%s %s is located on %s and belongs to %s", type, ip, country, isp);
+  }
 
 }

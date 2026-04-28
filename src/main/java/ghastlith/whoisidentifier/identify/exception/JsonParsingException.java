@@ -6,8 +6,8 @@ package ghastlith.whoisidentifier.identify.exception;
  */
 public class JsonParsingException extends RuntimeException {
 
-    public JsonParsingException() {
-        super("There was a problem parsing the whois response into a JSON");
-    }
+  public JsonParsingException() {
+    super("There was a problem parsing the whois response into a JSON");
+  }
 
 }
