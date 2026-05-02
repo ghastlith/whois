@@ -1,4 +1,6 @@
 # generated
+target/
+*.class
 HELP.md
 .gradle
 gradle/
@@ -40,4 +42,5 @@ out/
 
 # ignore
 .ignore/
+.ignore
 *.ignore.*
