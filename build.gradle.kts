@@ -23,7 +23,6 @@ dependencies {
 
   // tests
   testImplementation("org.springframework.boot:spring-boot-starter-test:3.5.4")
-  testImplementation("org.assertj:assertj-core:3.24.2")
 
   // lombok
   compileOnly("org.projectlombok:lombok:1.18.38")

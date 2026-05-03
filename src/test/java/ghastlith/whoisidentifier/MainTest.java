@@ -3,7 +3,6 @@ package ghastlith.whoisidentifier;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -14,18 +13,22 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
 
 import ghastlith.whoisidentifier.identify.IdentifyIpWhois;
 
+@ExtendWith(MockitoExtension.class)
 class MainTest {
 
-  private final ApplicationContext context = mock(ApplicationContext.class);
-  private final ApplicationArguments arguments = mock(ApplicationArguments.class);
-  private final IdentifyIpWhois identifyIpWhois = mock(IdentifyIpWhois.class);
-
-  private final Main application = new Main(context, identifyIpWhois);
+  @Mock private ApplicationContext context;
+  @Mock private ApplicationArguments arguments;
+  @Mock private IdentifyIpWhois identifyIpWhois;
+  @InjectMocks private Main application;
 
   private final PrintStream standardOut = System.out;
   private final PrintStream standardErr = System.err;
@@ -63,7 +66,6 @@ class MainTest {
   void run_shouldThrowReturnValidMessageWhenArgumentIpDoesntExists() {
     // given
     final var ip = singletonList("");
-    when(identifyIpWhois.getIPDetailedData(any())).thenReturn("mocked result");
     when(arguments.getOptionValues("ip")).thenReturn(ip);
 
     // when

@@ -26,10 +26,10 @@ public class IdentifyIpWhoisTest {
     // given
     final var ip = "8.8.8.8";
     final var responseBody = "{ \"ip\": \"8.8.8.8\", \"success\": true, \"type\": \"IPv4\", \"country\": \"United States\", \"connection\": { \"isp\": \"Google LLC\" } }";
-    when(this.mockHttpRequestSender.doGetRequest(any())).thenReturn(responseBody);
+    when(mockHttpRequestSender.doGetRequest(any())).thenReturn(responseBody);
 
     // when
-    final var response = this.identifyIpWhois.getIPDetailedData(ip);
+    final var response = identifyIpWhois.getIPDetailedData(ip);
 
     // then
     assertEquals("IPv4 8.8.8.8 is located on United States and belongs to Google LLC", response);
@@ -40,10 +40,10 @@ public class IdentifyIpWhoisTest {
     // given
     final var ip = "2001:4860:4860::8888";
     final var responseBody = "{ \"ip\": \"2001:4860:4860::8888\", \"success\": true, \"type\": \"IPv6\", \"country\": \"United States\", \"connection\": { \"isp\": \"Google LLC\" } }";
-    when(this.mockHttpRequestSender.doGetRequest(any())).thenReturn(responseBody);
+    when(mockHttpRequestSender.doGetRequest(any())).thenReturn(responseBody);
 
     // when
-    final var response = this.identifyIpWhois.getIPDetailedData(ip);
+    final var response = identifyIpWhois.getIPDetailedData(ip);
 
     // then
     assertEquals("IPv6 2001:4860:4860::8888 is located on United States and belongs to Google LLC", response);
@@ -54,10 +54,10 @@ public class IdentifyIpWhoisTest {
     // given
     final var ip = "127.0.0.1";
     final var responseBody = "{ \"ip\": \"127.0.0.1\", \"success\": false, \"message\": \"Reserved range\" }";
-    when(this.mockHttpRequestSender.doGetRequest(any())).thenReturn(responseBody);
+    when(mockHttpRequestSender.doGetRequest(any())).thenReturn(responseBody);
 
     // when
-    final var response = this.identifyIpWhois.getIPDetailedData(ip);
+    final var response = identifyIpWhois.getIPDetailedData(ip);
 
     // then
     assertEquals("The provided IP (" + ip + ") is invalid", response);
@@ -68,10 +68,10 @@ public class IdentifyIpWhoisTest {
     // given
     final var ip = "127.0.0.1";
     final var responseBody = "{ \"ip\": \"4\", \"success\": false, \"message\": \"Invalid IP address\" } ";
-    when(this.mockHttpRequestSender.doGetRequest(any())).thenReturn(responseBody);
+    when(mockHttpRequestSender.doGetRequest(any())).thenReturn(responseBody);
 
     // when
-    final var response = this.identifyIpWhois.getIPDetailedData(ip);
+    final var response = identifyIpWhois.getIPDetailedData(ip);
 
     // then
     assertEquals("The provided IP (" + ip + ") is invalid", response);
@@ -81,10 +81,10 @@ public class IdentifyIpWhoisTest {
   void getIPDetailedData_shouldThrowJsonFieldNotFoundWhenResponseBodyIsEmpty() {
     // given
     final var ip = "8.8.8.8";
-    when(this.mockHttpRequestSender.doGetRequest(any())).thenReturn("");
+    when(mockHttpRequestSender.doGetRequest(any())).thenReturn("");
 
     // when
-    final var throwable = catchThrowable(() -> this.identifyIpWhois.getIPDetailedData(ip));
+    final var throwable = catchThrowable(() -> identifyIpWhois.getIPDetailedData(ip));
 
     // then
     assertThat(throwable).isInstanceOf(JsonFieldNotFoundException.class);
