@@ -22,10 +22,10 @@ import ghastlith.whoisidentifier.identify.IdentifyIpWhois;
 class MainTest {
 
   private final ApplicationContext context = mock(ApplicationContext.class);
-  private final ApplicationArguments appArgs = mock(ApplicationArguments.class);
+  private final ApplicationArguments arguments = mock(ApplicationArguments.class);
   private final IdentifyIpWhois identifyIpWhois = mock(IdentifyIpWhois.class);
 
-  private final Main application = new Main(context, appArgs, identifyIpWhois);
+  private final Main application = new Main(context, identifyIpWhois);
 
   private final PrintStream standardOut = System.out;
   private final PrintStream standardErr = System.err;
@@ -47,31 +47,31 @@ class MainTest {
   @Test
   void run_shouldReturnValidMessageWhenArgumentIpExists() {
     // given
-    final var args = singletonList("127.0.0.1");
-    when(identifyIpWhois.getIPDetailedData(any())).thenReturn("Mocked Result");
-    when(appArgs.getOptionValues("ip")).thenReturn(args);
+    final var ip = singletonList("127.0.0.1");
+    when(identifyIpWhois.getIPDetailedData(any())).thenReturn("mocked result");
+    when(arguments.getOptionValues("ip")).thenReturn(ip);
 
     // when
-    application.run();
+    application.run(arguments);
 
     // then
     verify(identifyIpWhois, times(1)).getIPDetailedData(any());
-    assertThat(outStreamCaptor.toString()).contains("Mocked Result");
+    assertThat(outStreamCaptor.toString()).contains("mocked result");
   }
 
   @Test
   void run_shouldThrowReturnValidMessageWhenArgumentIpDoesntExists() {
     // given
-    final var args = singletonList("");
-    when(identifyIpWhois.getIPDetailedData(any())).thenReturn("Mocked Result");
-    when(appArgs.getOptionValues("ip")).thenReturn(args);
+    final var ip = singletonList("");
+    when(identifyIpWhois.getIPDetailedData(any())).thenReturn("mocked result");
+    when(arguments.getOptionValues("ip")).thenReturn(ip);
 
     // when
-    application.run();
+    application.run(arguments);
 
     // then
     verify(identifyIpWhois, times(0)).getIPDetailedData(any());
-    assertThat(errStreamCaptor.toString()).contains("Failure: The argument IP is required");
+    assertThat(errStreamCaptor.toString()).contains("failure: the argument IP is required");
   }
 
 }

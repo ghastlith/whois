@@ -2,7 +2,7 @@ package ghastlith.whoisidentifier;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -12,10 +12,9 @@ import lombok.AllArgsConstructor;
 
 @SpringBootApplication
 @AllArgsConstructor
-public class Main implements CommandLineRunner {
+public class Main implements ApplicationRunner {
 
   @Autowired private ApplicationContext context;
-  @Autowired private ApplicationArguments appArgs;
   @Autowired private IdentifyIpWhois identifyIpWhois;
 
   public static void main(final String[] args) {
@@ -23,8 +22,8 @@ public class Main implements CommandLineRunner {
   }
 
   @Override
-  public void run(final String... args) {
-    final var ip = appArgs.getOptionValues("ip");
+  public void run(final ApplicationArguments args) {
+    final var ip = args.getOptionValues("ip");
 
     if (null == ip || ip.get(0).isBlank()) {
       shutdown("the argument IP is required", 1);
