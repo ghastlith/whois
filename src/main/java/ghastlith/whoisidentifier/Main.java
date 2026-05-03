@@ -27,7 +27,7 @@ public class Main implements CommandLineRunner {
     final var ip = appArgs.getOptionValues("ip");
 
     if (null == ip || ip.get(0).isBlank()) {
-      shutdown("The argument IP is required", 1);
+      shutdown("the argument IP is required", 1);
       return;
     }
 
@@ -43,7 +43,7 @@ public class Main implements CommandLineRunner {
     if (0 == code) {
       System.out.println(message);
     } else {
-      System.err.println("Failure: " + message);
+      System.err.println("failure: " + message);
     }
 
     SpringApplication.exit(context, () -> code);
