@@ -2,7 +2,6 @@ package ghastlith.whoisidentifier.identify;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -32,7 +31,7 @@ public class IdentifyIpWhoisTest {
     final var response = identifyIpWhois.getIPDetailedData(ip);
 
     // then
-    assertEquals("IPv4 8.8.8.8 is located on United States and belongs to Google LLC", response);
+    assertThat(response).isEqualTo("IPv4 8.8.8.8 is located on United States and belongs to Google LLC");
   }
 
   @Test
@@ -46,7 +45,7 @@ public class IdentifyIpWhoisTest {
     final var response = identifyIpWhois.getIPDetailedData(ip);
 
     // then
-    assertEquals("IPv6 2001:4860:4860::8888 is located on United States and belongs to Google LLC", response);
+    assertThat(response).isEqualTo("IPv6 2001:4860:4860::8888 is located on United States and belongs to Google LLC");
   }
 
   @Test
@@ -60,7 +59,7 @@ public class IdentifyIpWhoisTest {
     final var response = identifyIpWhois.getIPDetailedData(ip);
 
     // then
-    assertEquals("The provided IP (" + ip + ") is invalid", response);
+    assertThat(response).isEqualTo("The provided IP (%s) is invalid".formatted(ip));
   }
 
   @Test
@@ -74,7 +73,7 @@ public class IdentifyIpWhoisTest {
     final var response = identifyIpWhois.getIPDetailedData(ip);
 
     // then
-    assertEquals("The provided IP (" + ip + ") is invalid", response);
+    assertThat(response).isEqualTo("The provided IP (%s) is invalid".formatted(ip));
   }
 
   @Test
