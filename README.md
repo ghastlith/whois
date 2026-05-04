@@ -2,7 +2,7 @@
 
 This is a very basic application used to identify the location and ownership of a valid IP address using the WhoIs public api.
 
-### running with docker
+### docker
 
 To run the application in Docker, you simply build the image.
 
