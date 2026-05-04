@@ -6,7 +6,7 @@ COPY . .
 
 RUN gradle build
 
-# package
+# run
 FROM openjdk:21
 
 ENV JAR_NAME=whois-identifier-1.0.0.jar
