@@ -15,6 +15,5 @@ ENV APP_HOME=/usr/app
 WORKDIR $APP_HOME
 COPY --from=build $APP_HOME .
 
-# run
 SHELL [ "/bin/bash", "-c" ]
 ENTRYPOINT exec java -jar $APP_HOME/build/libs/$JAR_NAME --ip=$IP
