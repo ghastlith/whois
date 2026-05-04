@@ -25,7 +25,7 @@ public class Main implements ApplicationRunner {
   public void run(final ApplicationArguments args) {
     final var ip = args.getOptionValues("ip");
 
-    if (null == ip || ip.get(0).isBlank()) {
+    if (ip == null || ip.get(0).isBlank()) {
       shutdown("the argument IP is required", 1);
       return;
     }
@@ -39,7 +39,7 @@ public class Main implements ApplicationRunner {
   }
 
   private void shutdown(final String message, final int code) {
-    if (0 == code) {
+    if (code == 0) {
       System.out.println(message);
     } else {
       System.err.println("failure: " + message);
