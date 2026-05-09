@@ -1,4 +1,4 @@
-package ghastlith.whoisidentifier;
+package ghastlith.whois;
 
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,7 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
 
-import ghastlith.whoisidentifier.identify.IdentifyIpWhois;
+import ghastlith.whois.identify.IdentifyIpWhois;
 
 @ExtendWith(MockitoExtension.class)
 class MainTest {

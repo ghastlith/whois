@@ -1,4 +1,4 @@
-package ghastlith.whoisidentifier.http;
+package ghastlith.whois.http;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -15,7 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import ghastlith.whoisidentifier.http.exception.HttpErrorResponseException;
+import ghastlith.whois.http.exception.HttpErrorResponseException;
 
 @ExtendWith(MockitoExtension.class)
 @SuppressWarnings({ "rawtypes", "unchecked" })

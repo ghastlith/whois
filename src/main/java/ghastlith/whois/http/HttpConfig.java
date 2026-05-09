@@ -1,4 +1,4 @@
-package ghastlith.whoisidentifier.http;
+package ghastlith.whois.http;
 
 import java.net.http.HttpClient;
 

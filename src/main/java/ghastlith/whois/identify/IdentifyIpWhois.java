@@ -1,4 +1,4 @@
-package ghastlith.whoisidentifier.identify;
+package ghastlith.whois.identify;
 
 import org.springframework.stereotype.Component;
 
@@ -6,9 +6,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ghastlith.whoisidentifier.http.HttpRequestSender;
-import ghastlith.whoisidentifier.identify.exception.JsonFieldNotFoundException;
-import ghastlith.whoisidentifier.identify.exception.JsonParsingException;
+import ghastlith.whois.http.HttpRequestSender;
+import ghastlith.whois.identify.exception.JsonFieldNotFoundException;
+import ghastlith.whois.identify.exception.JsonParsingException;
 import lombok.RequiredArgsConstructor;
 
 /**

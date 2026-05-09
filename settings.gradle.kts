@@ -1,1 +1,1 @@
-rootProject.name = "whois-identifier"
+rootProject.name = "whois";

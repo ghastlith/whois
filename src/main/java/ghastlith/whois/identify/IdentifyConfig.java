@@ -1,4 +1,4 @@
-package ghastlith.whoisidentifier.identify;
+package ghastlith.whois.identify;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

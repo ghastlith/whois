@@ -1,4 +1,4 @@
-package ghastlith.whoisidentifier.http.exception;
+package ghastlith.whois.http.exception;
 
 /**
  * {@link InvalidURLException} is thrown when the url built to be requested is

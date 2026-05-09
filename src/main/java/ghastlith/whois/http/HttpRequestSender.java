@@ -1,4 +1,4 @@
-package ghastlith.whoisidentifier.http;
+package ghastlith.whois.http;
 
 import java.io.IOException;
 import java.net.URI;
@@ -11,8 +11,8 @@ import java.net.http.HttpResponse.BodyHandlers;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-import ghastlith.whoisidentifier.http.exception.HttpErrorResponseException;
-import ghastlith.whoisidentifier.http.exception.InvalidURLException;
+import ghastlith.whois.http.exception.HttpErrorResponseException;
+import ghastlith.whois.http.exception.InvalidURLException;
 import lombok.RequiredArgsConstructor;
 
 /**

@@ -1,4 +1,4 @@
-package ghastlith.whoisidentifier;
+package ghastlith.whois;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
-import ghastlith.whoisidentifier.identify.IdentifyIpWhois;
+import ghastlith.whois.identify.IdentifyIpWhois;
 import lombok.AllArgsConstructor;
 
 @SpringBootApplication
