@@ -19,10 +19,10 @@ java {
 
 dependencies {
   // spring
-  implementation("org.springframework.boot:spring-boot-starter-web:3.5.14");
+  implementation("org.springframework.boot:spring-boot-starter-web");
 
   // tests
-  testImplementation("org.springframework.boot:spring-boot-starter-test:3.5.14");
+  testImplementation("org.springframework.boot:spring-boot-starter-test");
 
   // lombok
   compileOnly("org.projectlombok:lombok:1.18.38");
