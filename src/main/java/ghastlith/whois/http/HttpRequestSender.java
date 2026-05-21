@@ -31,6 +31,8 @@ public class HttpRequestSender {
    *
    * @param ip the desired url to retrieve information
    * @return The request response body.
+   * @throws InvalidURLException        If request URL has invalid syntax.
+   * @throws HttpErrorResponseException If the request fails or returned non-2xx.
    */
   public String doGetRequest(final String ip) {
     final var uri = buildUri(ip);

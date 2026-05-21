@@ -27,6 +27,8 @@ public class IdentifyIpWhois {
    *
    * @param ip the ip to be identified
    * @return Response based on the request response body.
+   * @throws JsonProcessingException    If JSON was unable to be parsed.
+   * @throws JsonFieldNotFoundException If JSON does not contain value path.
    */
   public String getIPDetailedData(final String ip) {
     final var responseBody = httpRequestSender.doGetRequest(ip);
