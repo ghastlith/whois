@@ -68,7 +68,7 @@ public class IdentifyIpWhois {
     final var country = getValueFromJson(mappedBody, "country").asText();
     final var isp = getValueFromJson(mappedBody, "connection/isp").asText();
 
-    return String.format(RESPONSE_LOG_FORMAT, type, ip, country, isp);
+    return RESPONSE_LOG_FORMAT.formatted(type, ip, country, isp);
   }
 
 }
