@@ -1,5 +1,7 @@
 package ghastlith.whois.identify;
 
+import static java.lang.String.format;
+
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -66,7 +68,7 @@ public class IdentifyIpWhois {
     final var country = getValueFromJson(mappedBody, "country").asText();
     final var isp = getValueFromJson(mappedBody, "connection/isp").asText();
 
-    return String.format("%s %s is located on %s and belongs to %s", type, ip, country, isp);
+    return format("%s %s is located on %s and belongs to %s", type, ip, country, isp);
   }
 
 }
