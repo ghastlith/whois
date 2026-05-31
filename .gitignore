@@ -43,4 +43,5 @@ out/
 # ignore
 .ignore/
 .ignore
+*.ignore
 *.ignore.*
