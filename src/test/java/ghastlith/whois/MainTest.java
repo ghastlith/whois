@@ -25,9 +25,9 @@ import ghastlith.whois.identify.IdentifyIpWhois;
 @ExtendWith(MockitoExtension.class)
 class MainTest {
 
-  @Mock private ApplicationContext context;
-  @Mock private ApplicationArguments arguments;
-  @Mock private IdentifyIpWhois identifyIpWhois;
+  @Mock private ApplicationContext mockContext;
+  @Mock private ApplicationArguments mockArguments;
+  @Mock private IdentifyIpWhois mockIdentifyIpWhois;
   @InjectMocks private Main application;
 
   private final PrintStream standardOut = System.out;
@@ -51,14 +51,14 @@ class MainTest {
   void run_shouldReturnValidMessageWhenArgumentIpExists() {
     // given
     final var ip = singletonList("127.0.0.1");
-    when(identifyIpWhois.getIPDetailedData(any())).thenReturn("mocked result");
-    when(arguments.getOptionValues("ip")).thenReturn(ip);
+    when(mockIdentifyIpWhois.getIPDetailedData(any())).thenReturn("mocked result");
+    when(mockArguments.getOptionValues("ip")).thenReturn(ip);
 
     // when
-    application.run(arguments);
+    application.run(mockArguments);
 
     // then
-    verify(identifyIpWhois, times(1)).getIPDetailedData(any());
+    verify(mockIdentifyIpWhois, times(1)).getIPDetailedData(any());
     assertThat(outStreamCaptor.toString()).contains("mocked result");
   }
 
@@ -66,13 +66,13 @@ class MainTest {
   void run_shouldThrowReturnValidMessageWhenArgumentIpDoesntExists() {
     // given
     final var ip = singletonList("");
-    when(arguments.getOptionValues("ip")).thenReturn(ip);
+    when(mockArguments.getOptionValues("ip")).thenReturn(ip);
 
     // when
-    application.run(arguments);
+    application.run(mockArguments);
 
     // then
-    verify(identifyIpWhois, times(0)).getIPDetailedData(any());
+    verify(mockIdentifyIpWhois, times(0)).getIPDetailedData(any());
     assertThat(errStreamCaptor.toString()).contains("failure: the argument IP is required");
   }
 

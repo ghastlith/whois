@@ -23,7 +23,7 @@ public class HttpRequestSenderTest {
 
   @Mock private HttpClient mockHttpClient;
   @Mock private HttpResponse mockHttpResponse;
-  @InjectMocks private HttpRequestSender mockHttpRequestSender;
+  @InjectMocks private HttpRequestSender httpRequestSender;
 
   private static final String IP = "168.124.24.32";
 
@@ -37,7 +37,7 @@ public class HttpRequestSenderTest {
     when(mockHttpClient.send(any(), any())).thenReturn(mockHttpResponse);
 
     // when
-    final var response = mockHttpRequestSender.doGetRequest(IP);
+    final var response = httpRequestSender.doGetRequest(IP);
 
     // then
     assertThat(response).isEqualTo(mockResponseBody);
@@ -50,7 +50,7 @@ public class HttpRequestSenderTest {
     when(mockHttpClient.send(any(), any())).thenReturn(mockHttpResponse);
 
     // when
-    final var throwable = catchThrowable(() -> mockHttpRequestSender.doGetRequest(IP));
+    final var throwable = catchThrowable(() -> httpRequestSender.doGetRequest(IP));
 
     // then
     assertThat(throwable).isInstanceOf(HttpErrorResponseException.class);
