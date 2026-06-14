@@ -1,6 +1,5 @@
 package ghastlith.whois;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,8 +13,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Main implements ApplicationRunner {
 
-  @Autowired private ApplicationContext context;
-  @Autowired private IdentifyIpWhois identifyIpWhois;
+  private ApplicationContext context;
+  private IdentifyIpWhois identifyIpWhois;
 
   public static void main(final String[] args) {
     SpringApplication.run(Main.class, args);
